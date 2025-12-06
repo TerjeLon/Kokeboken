@@ -49,17 +49,25 @@ struct RecipeListScreen: View {
         }
         .scrollContentBackground(.hidden)
         .background(Assets.Colors.background)
+        .navigationDestination(for: Recipe.self) { recipe in
+            return RecipeReaderScreen(recipe: recipe)
+        }
     }
 }
 
 #if DEBUG
 #Preview {
+    @Previewable
+    @StateObject
+    var navigationCoordinator = NavigationCoordinator()
+    
     let mockedModelContainer = mockedModelContainer()
     
     NavigationStack {
         RecipeListScreen()
     }
     .modelContainer(mockedModelContainer)
+    .environmentObject(navigationCoordinator)
     .task {
         await Recipe.injectMockedList(into: mockedModelContainer.mainContext)
     }

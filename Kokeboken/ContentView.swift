@@ -17,6 +17,11 @@ struct ContentView: View {
 }
 
 #Preview {
+    let modelContainer = mockedModelContainer()
+    
     ContentView()
-        .modelContainer(mockedModelContainer())
+        .modelContainer(modelContainer)
+        .task {
+            await Recipe.injectMockedList(into: modelContainer.mainContext)
+        }
 }

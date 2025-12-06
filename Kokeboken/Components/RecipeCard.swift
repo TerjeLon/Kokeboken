@@ -5,6 +5,9 @@ struct RecipeCard: View {
     @Environment(\.modelContext)
     private var modelContext
     
+    @EnvironmentObject
+    private var navigationCoordinator: NavigationCoordinator
+    
     @State
     private var showOptions: Bool = false
     
@@ -15,26 +18,30 @@ struct RecipeCard: View {
     
     var body: some View {
         HStack(spacing: Assets.Margins.sm) {
-            Card(recipe: recipe)
-                .overlay(alignment: .topTrailing) {
-                    if !showOptions {
-                        Button {
-                            withAnimation(.snappy) {
-                                showOptions.toggle()
+            Button {
+                navigationCoordinator.push(recipe)
+            } label: {
+                Card(recipe: recipe)
+                    .overlay(alignment: .topTrailing) {
+                        if !showOptions {
+                            Button {
+                                withAnimation(.snappy) {
+                                    showOptions.toggle()
+                                }
+                            } label: {
+                                Image(systemName: "ellipsis")
+                                    .frame(width: 20, height: 20)
+                                    .padding(Assets.Margins.xs)
                             }
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .frame(width: 20, height: 20)
-                                .padding(Assets.Margins.xs)
+                            .buttonStyle(.glass)
+                            .clipShape(.circle)
+                            .padding(.trailing, Assets.Margins.sm)
+                            .padding(.top, Assets.Margins.sm)
                         }
-                        .buttonStyle(.glass)
-                        .clipShape(.circle)
-                        .padding(.trailing, Assets.Margins.sm)
-                        .padding(.top, Assets.Margins.sm)
                     }
-                }
-                .padding(.leading, Assets.Margins.lg)
-                .padding(.trailing, showOptions ? 0 : Assets.Margins.lg)
+                    .padding(.leading, Assets.Margins.lg)
+                    .padding(.trailing, showOptions ? 0 : Assets.Margins.lg)
+            }
             
             if showOptions {
                 VStack {
