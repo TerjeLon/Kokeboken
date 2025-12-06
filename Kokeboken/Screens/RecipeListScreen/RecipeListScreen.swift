@@ -41,7 +41,7 @@ struct RecipeListScreen: View {
                     }
                     .shadow(
                         color: colorScheme == .dark ? .black.opacity(0.2) : .black.opacity(0.15),
-                        radius: colorScheme == .dark ? 10 : 10,
+                        radius: 10,
                         x: 0,
                         y: colorScheme == .dark ? 3 : 3
                     )
