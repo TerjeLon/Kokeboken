@@ -26,6 +26,8 @@ struct RecipeListScreen: View {
                         
                         Text(recipe.title)
                             .padding(Assets.Margins.sm)
+                            .foregroundStyle(Assets.Colors.textPrimary)
+                            .font(.headline)
                     }
                     .background(Assets.Colors.surface)
                     .clipShape(RoundedRectangle(cornerRadius: Assets.Radiuses.xxl))

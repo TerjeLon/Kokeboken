@@ -24,25 +24,25 @@ extension Color {
 public struct AppColors {
     // MARK: - Primary Colors
     /// Primary blue-gray color
-    /// Light mode: #4e6398, Dark mode: #6B8BC7 (lighter for better contrast)
+    /// Light mode: #4e6398, Dark mode: #7A8FB8 (softer blue-gray that complements rosy theme)
     public static let primary = Color(
         light: (red: 0.306, green: 0.388, blue: 0.596),
-        dark: (red: 0.420, green: 0.545, blue: 0.780)
+        dark: (red: 0.478, green: 0.561, blue: 0.722)
     )
     
     // MARK: - Background Colors
     /// Background color
-    /// Light mode: #fff0f3 (light pink/peach), Dark mode: #1A1B2E (deep blue-gray)
+    /// Light mode: #fff0f3 (light pink/peach), Dark mode: #3A2528 (deep rosy brown)
     public static let background = Color(
         light: (red: 1.0, green: 0.941, blue: 0.953),
-        dark: (red: 0.102, green: 0.106, blue: 0.180)
+        dark: (red: 0.227, green: 0.145, blue: 0.157)
     )
     
     /// Surface color for cards and elevated elements
-    /// Light mode: #F0E1E4 (light pink), Dark mode: #252640 (slightly lighter than background)
+    /// Light mode: #F0E1E4 (light pink), Dark mode: #4A3236 (medium rosy)
     public static let surface = Color(
         light: (red: 0.941, green: 0.882, blue: 0.894),
-        dark: (red: 0.145, green: 0.149, blue: 0.251)
+        dark: (red: 0.290, green: 0.196, blue: 0.212)
     )
     
 
