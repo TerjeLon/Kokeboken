@@ -103,6 +103,7 @@
 			);
 			name = Kokeboken;
 			packageProductDependencies = (
+				E369234C2EE4408700E65CAD /* Assets */,
 			);
 			productName = Kokeboken;
 			productReference = E369231F2EE4408500E65CAD /* Kokeboken.app */;
@@ -160,6 +161,9 @@
 			mainGroup = E36923162EE4408500E65CAD;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
+			packageReferences = (
+				E369234B2EE4408700E65CAD /* XCLocalSwiftPackageReference "Assets" */,
+			);
 			productRefGroup = E36923202EE4408500E65CAD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -211,6 +215,21 @@
 			targetProxy = E36923312EE4408700E65CAD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		E369234B2EE4408700E65CAD /* XCLocalSwiftPackageReference "Assets" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Kokeboken/Packages/Assets;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E369234C2EE4408700E65CAD /* Assets */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E369234B2EE4408700E65CAD /* XCLocalSwiftPackageReference "Assets" */;
+			productName = Assets;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E36923442EE4408700E65CAD /* Debug */ = {
