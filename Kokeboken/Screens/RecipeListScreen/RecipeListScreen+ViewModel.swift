@@ -32,7 +32,7 @@ extension RecipeListScreen {
                     // TODO: Use AI to strip away stuff that is not related to recipe name
                 }
                 
-                RecipeRepository.insert(recipe, into: context)
+                try RecipeRepository.insert(recipe, into: context)
             } catch {
                 // TODO: Handle errors
             }
