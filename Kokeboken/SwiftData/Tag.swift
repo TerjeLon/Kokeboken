@@ -10,7 +10,7 @@ final class Tag {
     
     /// The recipes associated with this tag.
     @Relationship(deleteRule: .nullify, inverse: \Recipe.tags)
-    var recipes: [Recipe]?
+    var recipes: [Recipe]
     
     /// Initializes a new tag instance.
     /// - Parameter name: The unique name of the tag.

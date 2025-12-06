@@ -18,7 +18,7 @@ final class Recipe {
     
     /// The tags associated with this recipe.
     @Relationship(deleteRule: .nullify, inverse: \Tag.recipes)
-    var tags: [Tag]?
+    var tags: [Tag]
     
     /// Initializes a new recipe instance.
     /// - Parameters:
