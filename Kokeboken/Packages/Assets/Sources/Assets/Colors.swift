@@ -9,8 +9,8 @@ public struct AppColors {
     // MARK: - Background Colors
     /// Light pink/peach background color (#fff0f3)
     public static let background = Color(red: 1.0, green: 0.941, blue: 0.953)
-    /// Secondary dusty rose/coral color (#e4b1ab)
-    public static let surface = Color(red: 0.894, green: 0.694, blue: 0.671)
+    /// Light pink surface color (#F0E1E4)
+    public static let surface = Color(red: 0.941, green: 0.882, blue: 0.894)
     
 
     // MARK: - Text Colors

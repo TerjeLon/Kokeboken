@@ -16,8 +16,21 @@ struct RecipeListScreen: View {
         ScrollView {
             LazyVStack {
                 ForEach(recipes) { recipe in
-                    Text(recipe.title)
-                        .transition(.offset(x: 0, y: -20).combined(with: .opacity))
+                    VStack(spacing: 0) {
+                        recipe.image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .frame(height: 100)
+                            .clipped()
+                        
+                        Text(recipe.title)
+                            .padding(Assets.Margins.sm)
+                    }
+                    .background(Assets.Colors.surface)
+                    .clipShape(RoundedRectangle(cornerRadius: Assets.Radiuses.xxl))
+                    .transition(.offset(x: 0, y: -20).combined(with: .opacity))
+                    .padding(.horizontal, Assets.Margins.lg)
                 }
             }
         }
