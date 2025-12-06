@@ -45,6 +45,13 @@ public struct AppColors {
         dark: (red: 0.290, green: 0.196, blue: 0.212)
     )
     
+    /// Border color that complements surface color
+    /// Light mode: #E8D5DA (very subtle rose), Dark mode: #3D2A2E (darker rosy for subtle definition)
+    public static let border = Color(
+        light: (red: 0.910, green: 0.835, blue: 0.855),
+        dark: (red: 0.239, green: 0.165, blue: 0.180)
+    )
+    
 
     // MARK: - Text Colors
     /// Primary text color
