@@ -2,6 +2,94 @@ import Assets
 import SwiftUI
 
 struct RecipeCard: View {
+    @Environment(\.modelContext)
+    private var modelContext
+    
+    @State
+    private var showOptions: Bool = false
+    
+    @State
+    private var showDeleteAlert: Bool = false
+    
+    let recipe: Recipe
+    
+    var body: some View {
+        HStack(spacing: Assets.Margins.sm) {
+            Card(recipe: recipe)
+                .overlay(alignment: .topTrailing) {
+                    if !showOptions {
+                        Button {
+                            withAnimation(.snappy) {
+                                showOptions.toggle()
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .frame(width: 20, height: 20)
+                                .padding(Assets.Margins.xs)
+                        }
+                        .buttonStyle(.glass)
+                        .clipShape(.circle)
+                        .padding(.trailing, Assets.Margins.sm)
+                        .padding(.top, Assets.Margins.sm)
+                    }
+                }
+                .padding(.leading, Assets.Margins.lg)
+                .padding(.trailing, showOptions ? 0 : Assets.Margins.lg)
+            
+            if showOptions {
+                VStack {
+                    Button {
+                        withAnimation(.snappy) {
+                            showOptions.toggle()
+                        }
+                    } label: {
+                        Image(systemName: "xmark")
+                            .frame(width: 20, height: 20)
+                            .padding(Assets.Margins.xs)
+                    }
+                    .buttonStyle(.glass)
+                    .clipShape(.circle)
+                    
+                    Spacer()
+                    
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "pencil")
+                            .frame(width: 20, height: 20)
+                            .padding(Assets.Margins.xs)
+                    }
+                    .buttonStyle(.glass)
+                    .clipShape(.circle)
+                    
+                    Spacer()
+                    
+                    Button {
+                        showDeleteAlert.toggle()
+                    } label: {
+                        Image(systemName: "trash")
+                            .frame(width: 20, height: 20)
+                            .padding(Assets.Margins.xs)
+                    }
+                    .buttonStyle(.glassProminent)
+                    .tint(Assets.Colors.delete)
+                    .clipShape(.circle)
+                    .alert(
+                        "Slett oppskriften?",
+                        isPresented: $showDeleteAlert
+                    ) {
+                        Button("Slett", systemImage: "trash", role: .destructive) {
+                            try! RecipeRepository.delete(recipe, in: modelContext)
+                        }
+                    }
+                }
+                .padding(.trailing, Assets.Margins.sm)
+            }
+        }
+    }
+}
+
+fileprivate struct Card: View {
     @Environment(\.colorScheme)
     private var colorScheme
     
@@ -21,6 +109,7 @@ struct RecipeCard: View {
                 .padding(.vertical, Assets.Margins.md)
                 .foregroundStyle(Assets.Colors.textPrimary)
                 .font(.headline)
+                .lineLimit(2)
         }
         .background(Assets.Colors.surface)
         .clipShape(RoundedRectangle(cornerRadius: Assets.Radiuses.xxl))
@@ -35,6 +124,5 @@ struct RecipeCard: View {
             x: 0,
             y: colorScheme == .dark ? 3 : 3
         )
-        .padding(.horizontal, Assets.Margins.lg)
     }
 }

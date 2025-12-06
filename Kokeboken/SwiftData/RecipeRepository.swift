@@ -6,4 +6,9 @@ final class RecipeRepository {
         context.insert(recipe)
         try context.save()
     }
+    
+    static func delete(_ recipe: Recipe, in context: ModelContext) throws {
+        context.delete(recipe)
+        try context.save()
+    }
 }

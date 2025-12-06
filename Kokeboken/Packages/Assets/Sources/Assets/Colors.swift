@@ -30,6 +30,14 @@ public struct AppColors {
         dark: (red: 0.478, green: 0.561, blue: 0.722)
     )
     
+    // MARK: - Action Colors
+    /// Delete/destructive action color with rosy-red tone
+    /// Light mode: #C85A6B (rosy red), Dark mode: #E87A8B (brighter rosy red for visibility)
+    public static let delete = Color(
+        light: (red: 0.784, green: 0.353, blue: 0.420),
+        dark: (red: 0.910, green: 0.478, blue: 0.545)
+    )
+    
     // MARK: - Background Colors
     /// Background color
     /// Light mode: #fff0f3 (light pink/peach), Dark mode: #3A2528 (deep rosy brown)

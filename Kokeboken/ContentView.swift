@@ -4,11 +4,15 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext)
     private var modelContext
+    
+    @StateObject
+    var navigationCoordinator = NavigationCoordinator()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationCoordinator.path) {
             RecipeListScreen()
         }
+        .environmentObject(navigationCoordinator)
     }
 }
 
