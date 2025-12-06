@@ -23,7 +23,15 @@ extension RecipeListScreen {
                 }
                 
                 let metadata = try await URLParser.parse(url: url)
+                let recipe = Recipe.from(metadata)
                 
+                if recipe.title.isEmpty {
+                    // TODO: Show dialog to name the recipe
+                } else {
+                    // TODO: Use AI to strip away stuff that is not related to recipe name
+                }
+                
+                // TODO: Insert recipe into SwiftData
             } catch {
                 // TODO: Handle errors
             }
