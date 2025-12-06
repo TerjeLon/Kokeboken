@@ -21,7 +21,9 @@ struct RecipeListScreen: View {
                         viewModel.recipeUrlText = ""
                     }
                     Button("Legg til") {
-                        // Handle adding recipe
+                        Task {
+                            await viewModel.addRecipe()
+                        }
                     }
                 }
             }

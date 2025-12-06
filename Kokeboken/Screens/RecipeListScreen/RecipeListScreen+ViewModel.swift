@@ -1,5 +1,6 @@
 import Combine
 import UIKit
+import URLParser
 
 extension RecipeListScreen {
     final class ViewModel: ObservableObject {
@@ -15,6 +16,19 @@ extension RecipeListScreen {
             observeDialogShown()
         }
         
+        func addRecipe() async {
+            do {
+                guard let url = URL(string: recipeUrlText) else {
+                    return
+                }
+                
+                let metadata = try await URLParser.parse(url: url)
+                
+            } catch {
+                // TODO: Handle errors
+            }
+        }
+        
         private func observeDialogShown() {
             cancellable = $showRecipeUrlDialog.sink { shown in
                 if shown {
@@ -24,18 +38,11 @@ extension RecipeListScreen {
         }
         
         private func populateRecipeUrlFromPasteboard() {
-            let pasteboard = UIPasteboard.general
-            guard let pasteboardString = pasteboard.string,
-                  !pasteboardString.isEmpty else {
+            guard let pasteboardUrl = UIPasteboard.general.url else {
                 return
             }
             
-            // Check if the pasteboard content is a valid URL
-            if let url = URL(string: pasteboardString),
-               url.scheme != nil,
-               (url.scheme == "http" || url.scheme == "https") {
-                recipeUrlText = pasteboardString
-            }
+            recipeUrlText = pasteboardUrl.absoluteString
         }
     }
 }
