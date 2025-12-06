@@ -28,7 +28,8 @@ struct RecipeListScreen: View {
                             .clipped()
                         
                         Text(recipe.title)
-                            .padding(Assets.Margins.sm)
+                            .padding(.horizontal, Assets.Margins.sm)
+                            .padding(.vertical, Assets.Margins.md)
                             .foregroundStyle(Assets.Colors.textPrimary)
                             .font(.headline)
                     }
