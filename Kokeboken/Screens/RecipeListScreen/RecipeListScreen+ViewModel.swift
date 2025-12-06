@@ -9,7 +9,7 @@ extension RecipeListScreen {
         var showRecipeUrlDialog: Bool = false
         
         @Published
-        var recipeUrlText: String = ""
+        var recipeUrlText: String = "https://www.nrk.no/mat/kinesisk-amerikansk-biff-chop-suey-1.16078725"
         
         var cancellable: AnyCancellable?
         

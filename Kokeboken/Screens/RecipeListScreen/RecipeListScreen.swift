@@ -6,13 +6,22 @@ struct RecipeListScreen: View {
     @Environment(\.modelContext)
     private var modelContext
     
+    @Query(animation: .snappy)
+    private var recipes: [Recipe]
+    
     @StateObject
     private var viewModel = ViewModel()
     
     var body: some View {
-        List {
-            
+        ScrollView {
+            LazyVStack {
+                ForEach(recipes) { recipe in
+                    Text(recipe.title)
+                        .transition(.offset(x: 0, y: -20).combined(with: .opacity))
+                }
+            }
         }
+        .scrollBounceBehavior(.basedOnSize)
         .navigationTitle("Oppskrifter")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -24,6 +33,8 @@ struct RecipeListScreen: View {
                     isPresented: $viewModel.showRecipeUrlDialog
                 ) {
                     TextField("Lenke", text: $viewModel.recipeUrlText)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
                     
                     Button("Avbryt", role: .cancel) {
                         viewModel.recipeUrlText = ""
