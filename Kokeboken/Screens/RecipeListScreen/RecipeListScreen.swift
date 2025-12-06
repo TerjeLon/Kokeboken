@@ -53,9 +53,16 @@ struct RecipeListScreen: View {
     }
 }
 
+#if DEBUG
 #Preview {
+    let mockedModelContainer = mockedModelContainer()
+    
     NavigationStack {
         RecipeListScreen()
     }
-    .modelContainer(mockedModelContainer())
+    .modelContainer(mockedModelContainer)
+    .task {
+        await Recipe.injectMockedList(into: mockedModelContainer.mainContext)
+    }
 }
+#endif
