@@ -3,8 +3,11 @@ import SwiftData
 
 @main
 struct KokebokenApp: App {
-    /*var sharedModelContainer: ModelContainer = {
-        let schema = Schema([])
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            Recipe.self,
+            Tag.self,
+        ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
@@ -12,17 +15,12 @@ struct KokebokenApp: App {
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
-    }()*/
+    }()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
-        //.modelContainer(sharedModelContainer)
+        .modelContainer(sharedModelContainer)
     }
-}
-
-
-#Preview {
-    Text("Test")
 }
