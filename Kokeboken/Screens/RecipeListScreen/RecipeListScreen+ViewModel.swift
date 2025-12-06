@@ -9,14 +9,16 @@ extension RecipeListScreen {
         @Published
         var recipeUrlText: String = ""
         
+        var cancellable: AnyCancellable?
+        
         init() {
             observeDialogShown()
         }
         
         private func observeDialogShown() {
-            $showRecipeUrlDialog.sink { shown in
+            cancellable = $showRecipeUrlDialog.sink { shown in
                 if shown {
-                    populateRecipeUrlFromPasteboard()
+                    self.populateRecipeUrlFromPasteboard()
                 }
             }
         }
