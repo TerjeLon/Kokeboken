@@ -103,7 +103,7 @@ fileprivate struct Card: View {
     let recipe: Recipe
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             recipe.image
                 .resizable()
                 .scaledToFill()
