@@ -1,4 +1,5 @@
 import Combine
+import SwiftData
 import UIKit
 import URLParser
 
@@ -16,7 +17,7 @@ extension RecipeListScreen {
             observeDialogShown()
         }
         
-        func addRecipe() async {
+        func addRecipe(into context: ModelContext) async {
             do {
                 guard let url = URL(string: recipeUrlText) else {
                     return
@@ -31,7 +32,7 @@ extension RecipeListScreen {
                     // TODO: Use AI to strip away stuff that is not related to recipe name
                 }
                 
-                // TODO: Insert recipe into SwiftData
+                RecipeRepository.insert(recipe, into: context)
             } catch {
                 // TODO: Handle errors
             }

@@ -1,7 +1,11 @@
 import Assets
+import SwiftData
 import SwiftUI
 
 struct RecipeListScreen: View {
+    @Environment(\.modelContext)
+    private var modelContext
+    
     @StateObject
     private var viewModel = ViewModel()
     
@@ -22,7 +26,7 @@ struct RecipeListScreen: View {
                     }
                     Button("Legg til") {
                         Task {
-                            await viewModel.addRecipe()
+                            await viewModel.addRecipe(into: modelContext)
                         }
                     }
                 }
@@ -37,4 +41,5 @@ struct RecipeListScreen: View {
     NavigationStack {
         RecipeListScreen()
     }
+    .modelContainer(mockedModelContainer())
 }
