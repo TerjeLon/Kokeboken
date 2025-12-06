@@ -2,6 +2,13 @@ import SwiftUI
 
 extension Recipe {
     var image: Image {
-        return Image(uiImage: UIImage(data: imageData!)!)
+        guard
+            let imageData,
+            let uiImage = UIImage(data: imageData)
+        else {
+            return Image(uiImage: UIImage())
+        }
+        
+        return Image(uiImage: uiImage)
     }
 }

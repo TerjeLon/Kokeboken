@@ -5,11 +5,11 @@ import Foundation
 
 struct RecipeReaderScreen: View {
     let recipe: Recipe
-    @Environment(\.dismiss)
-    private var dismiss
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-        SafariView(url: recipe.url, onDismiss: {
+        SafariView(url: recipe.url, colorScheme: colorScheme, onDismiss: {
             dismiss()
         })
         .edgesIgnoringSafeArea(.all)
@@ -19,6 +19,7 @@ struct RecipeReaderScreen: View {
 
 struct SafariView: UIViewControllerRepresentable {
     let url: URL
+    let colorScheme: ColorScheme
     let onDismiss: () -> Void
     
     func makeCoordinator() -> Coordinator {
@@ -28,11 +29,17 @@ struct SafariView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> SFSafariViewController {
         let safariViewController = SFSafariViewController(url: url)
         safariViewController.delegate = context.coordinator
+        updateColors(for: safariViewController)
         return safariViewController
     }
     
     func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {
-        // No update needed
+        // Update colors when color scheme changes
+        updateColors(for: uiViewController)
+    }
+    
+    private func updateColors(for safariViewController: SFSafariViewController) {
+        safariViewController.overrideUserInterfaceStyle = colorScheme == .dark ? .dark : .light
     }
     
     class Coordinator: NSObject, SFSafariViewControllerDelegate {
@@ -47,3 +54,4 @@ struct SafariView: UIViewControllerRepresentable {
         }
     }
 }
+
