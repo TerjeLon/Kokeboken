@@ -6,14 +6,13 @@ public struct AppColors {
     /// Primary blue-gray color (#4e6398)
     public static let primary = Color(red: 0.306, green: 0.388, blue: 0.596)
     
-    // MARK: - Secondary Colors
-    /// Secondary dusty rose/coral color (#e4b1ab)
-    public static let surface = Color(red: 0.894, green: 0.694, blue: 0.671)
-    
     // MARK: - Background Colors
     /// Light pink/peach background color (#fff0f3)
     public static let background = Color(red: 1.0, green: 0.941, blue: 0.953)
+    /// Secondary dusty rose/coral color (#e4b1ab)
+    public static let surface = Color(red: 0.894, green: 0.694, blue: 0.671)
     
+
     // MARK: - Text Colors
     /// Dark text color (#000103)
     public static let textPrimary = Color(red: 0.0, green: 0.004, blue: 0.012)
