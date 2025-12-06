@@ -19,11 +19,16 @@ struct RecipeListScreen: View {
                 Button("", systemImage: "plus") {
                     viewModel.showRecipeUrlDialog.toggle()
                 }
-                .alert("Lim inn lenke til oppskrift", isPresented: $viewModel.showRecipeUrlDialog) {
+                .alert(
+                    "Lim inn lenke til oppskrift",
+                    isPresented: $viewModel.showRecipeUrlDialog
+                ) {
                     TextField("Lenke", text: $viewModel.recipeUrlText)
+                    
                     Button("Avbryt", role: .cancel) {
                         viewModel.recipeUrlText = ""
                     }
+                    
                     Button("Legg til") {
                         Task {
                             await viewModel.addRecipe(into: modelContext)
