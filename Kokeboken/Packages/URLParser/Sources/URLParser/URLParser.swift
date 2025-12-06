@@ -39,9 +39,9 @@ public enum URLParser {
     private static func extractMetaTag(from html: String, property: String? = nil, name: String? = nil) -> String? {
         let pattern: String
         if let property = property {
-            pattern = #"<meta[^>]*property=["']\(property)["'][^>]*content=["']([^"']+)["']"#
+            pattern = #"<meta[^>]*property=["']\#(property)["'][^>]*content=["']([^"']+)["']"#
         } else if let name = name {
-            pattern = #"<meta[^>]*name=["']\(name)["'][^>]*content=["']([^"']+)["']"#
+            pattern = #"<meta[^>]*name=["']\#(name)["'][^>]*content=["']([^"']+)["']"#
         } else {
             return nil
         }
