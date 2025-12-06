@@ -117,6 +117,7 @@ fileprivate struct Card: View {
                 .foregroundStyle(Assets.Colors.textPrimary)
                 .font(.headline)
                 .lineLimit(2)
+                .multilineTextAlignment(.leading)
         }
         .background(Assets.Colors.surface)
         .clipShape(RoundedRectangle(cornerRadius: Assets.Radiuses.xxl))

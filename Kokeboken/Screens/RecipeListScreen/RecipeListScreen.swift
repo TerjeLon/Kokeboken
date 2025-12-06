@@ -6,19 +6,15 @@ struct RecipeListScreen: View {
     @Environment(\.modelContext)
     private var modelContext
     
-    @Query(animation: .snappy)
-    private var recipes: [Recipe]
-    
     @StateObject
     private var viewModel = ViewModel()
     
+    @State
+    var query: String = ""
+    
     var body: some View {
         ScrollView {
-            LazyVStack {
-                ForEach(recipes) { recipe in
-                    RecipeCard(recipe: recipe)
-                }
-            }
+            SearchableList(query: viewModel.query)
         }
         .scrollBounceBehavior(.basedOnSize)
         .navigationTitle("Oppskrifter")
@@ -49,8 +45,36 @@ struct RecipeListScreen: View {
         }
         .scrollContentBackground(.hidden)
         .background(Assets.Colors.background)
+        .searchable(text: $viewModel.query, prompt: "Søk etter oppskrift")
         .navigationDestination(for: Recipe.self) { recipe in
             return RecipeReaderScreen(recipe: recipe)
+        }
+    }
+}
+
+fileprivate struct SearchableList: View {
+    @Environment(\.modelContext)
+    private var modelContext
+    
+    @Query
+    private var recipes: [Recipe]
+    
+    init(query: String) {
+        _recipes = Query(
+            filter: #Predicate<Recipe> { recipe in
+                query.isEmpty ||
+                recipe.title.localizedStandardContains(query)
+            },
+            sort: \.title,
+            animation: .snappy
+        )
+    }
+    
+    var body: some View {
+        LazyVStack {
+            ForEach(recipes) { recipe in
+                RecipeCard(recipe: recipe)
+            }
         }
     }
 }
