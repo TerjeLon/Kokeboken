@@ -9,7 +9,7 @@ final class Tag {
     var name: String
     
     /// The recipes associated with this tag.
-    @Relationship(deleteRule: .nullify, inverse: \Recipe.tags)
+    @Relationship(deleteRule: .nullify)
     var recipes: [Recipe]
     
     /// Initializes a new tag instance.
