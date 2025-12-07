@@ -1,4 +1,5 @@
 import Assets
+import SwiftData
 import SwiftUI
 
 struct RecipeCard: View {
@@ -13,6 +14,9 @@ struct RecipeCard: View {
     
     @State
     private var showDeleteAlert: Bool = false
+    
+    @State
+    private var editRecipeId: PersistentIdentifier? = nil
     
     let recipe: Recipe
     
@@ -60,7 +64,7 @@ struct RecipeCard: View {
                     Spacer()
                     
                     Button {
-                        
+                        editRecipeId = recipe.id
                     } label: {
                         Image(systemName: "pencil")
                             .frame(width: 20, height: 20)
@@ -68,6 +72,9 @@ struct RecipeCard: View {
                     }
                     .buttonStyle(.glass)
                     .clipShape(.circle)
+                    .sheet(item: $editRecipeId) { id in
+                        RecipeEditScreen(id: id, in: modelContext.container)
+                    }
                     
                     Spacer()
                     
