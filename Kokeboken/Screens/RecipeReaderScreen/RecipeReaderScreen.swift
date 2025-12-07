@@ -14,6 +14,14 @@ struct RecipeReaderScreen: View {
         })
         .edgesIgnoringSafeArea(.all)
         .toolbarVisibility(.hidden, for: .navigationBar)
+        .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
+        .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            UIApplication.shared.isIdleTimerDisabled = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+            UIApplication.shared.isIdleTimerDisabled = false
+        }
     }
 }
 
