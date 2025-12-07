@@ -18,6 +18,9 @@ extension RecipeListScreen {
         @Published
         var isAddingRecipe: Bool = false
         
+        @Published
+        var addRecipeSuccess: Bool = false
+        
         var cancellable: AnyCancellable?
         
         init() {
@@ -25,31 +28,40 @@ extension RecipeListScreen {
         }
         
         func addRecipe(into context: ModelContext) async {
+            guard let url = URL(string: recipeUrlText) else {
+                return
+            }
+            
+            withAnimation(.snappy) {
+                isAddingRecipe = true
+            }
+            
             do {
-                guard let url = URL(string: recipeUrlText) else {
-                    return
-                }
-                
-                withAnimation(.snappy) {
-                    isAddingRecipe = true
-                }
-                
                 let metadata = try await URLParser.parse(url: url)
                 let recipe = Recipe.from(metadata)
                 
-                if recipe.title.isEmpty {
-                    // TODO: Show dialog to name the recipe
-                } else {
-                    // TODO: Use AI to strip away stuff that is not related to recipe name
-                }
+                // TODO: Use AI to strip away stuff that is not related to recipe name
                 
                 try RecipeRepository.insert(recipe, into: context)
             } catch {
                 // TODO: Handle errors
             }
             
-            withAnimation(.snappy) {
-                isAddingRecipe = false
+            await MainActor.run {
+                withAnimation(.snappy) {
+                    addRecipeSuccess = true
+                } completion: { [weak self] in
+                    Task {
+                        try? await Task.sleep(for: .seconds(0.5))
+                        
+                        await MainActor.run {
+                            withAnimation(.snappy) {
+                                self?.isAddingRecipe = false
+                                self?.addRecipeSuccess = false
+                            }
+                        }
+                    }
+                }
             }
         }
         

@@ -52,12 +52,16 @@ struct RecipeListScreen: View {
                     Button {
                         
                     } label: {
-                        Image(systemName: "circle.hexagonpath")
-                            .symbolEffect(.rotate.byLayer, options: .repeat(.periodic(delay: 0.3)))
-                            .foregroundStyle(.white)
+                        Image(
+                            systemName: viewModel.addRecipeSuccess ? "checkmark" : "circle.hexagonpath"
+                        )
+                        .symbolEffect(.rotate.byLayer, options: .repeat(.periodic(delay: 0.3)))
+                        .contentTransition(.symbolEffect(.replace.magic(fallback: .downUp.byLayer), options: .nonRepeating))
+                        .foregroundStyle(.white)
                     }
                     .buttonStyle(.glassProminent)
-                    .tint(Assets.Colors.primary)
+                    .tint(viewModel.addRecipeSuccess ? Color.green : Assets.Colors.primary)
+                    .sensoryFeedback(.success, trigger: viewModel.addRecipeSuccess)
                 }
             }
         }
