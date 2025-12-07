@@ -14,6 +14,8 @@ struct RecipeReaderScreen: View {
         })
         .edgesIgnoringSafeArea(.all)
         .toolbarVisibility(.hidden, for: .navigationBar)
+        .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear { UIApplication.shared.isIdleTimerDisabled = true }
         .onDisappear { UIApplication.shared.isIdleTimerDisabled = false }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
