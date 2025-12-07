@@ -21,10 +21,14 @@ struct RecipeEditScreen: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("", text: $recipe.title)
+                    TextField("", text: $recipe.title, axis: .vertical)
+                        .padding(.vertical, Assets.Margins.sm)
                 } header: {
                     Text("Tittel")
+                        .foregroundStyle(Assets.Colors.textSecondary)
                 }
+                .listRowBackground(Assets.Colors.surface)
+                .listRowInsets(.vertical, 0)
             }
             .scrollContentBackground(.hidden)
             .background(Assets.Colors.background)
