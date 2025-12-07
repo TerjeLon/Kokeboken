@@ -46,6 +46,21 @@ struct RecipeListScreen: View {
         .scrollContentBackground(.hidden)
         .background(Assets.Colors.background)
         .searchable(text: $viewModel.query, prompt: "Søk etter oppskrift")
+        .toolbar {
+            if viewModel.isAddingRecipe {
+                ToolbarItem(placement: .bottomBar) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "circle.hexagonpath")
+                            .symbolEffect(.rotate.byLayer, options: .repeat(.periodic(delay: 0.3)))
+                            .foregroundStyle(.white)
+                    }
+                    .buttonStyle(.glassProminent)
+                    .tint(Assets.Colors.primary)
+                }
+            }
+        }
         .navigationDestination(for: Recipe.self) { recipe in
             return RecipeReaderScreen(recipe: recipe)
         }

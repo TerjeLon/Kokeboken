@@ -1,5 +1,6 @@
 import Combine
 import SwiftData
+import SwiftUI
 import UIKit
 import URLParser
 
@@ -14,6 +15,9 @@ extension RecipeListScreen {
         @Published
         var query: String = ""
         
+        @Published
+        var isAddingRecipe: Bool = false
+        
         var cancellable: AnyCancellable?
         
         init() {
@@ -24,6 +28,10 @@ extension RecipeListScreen {
             do {
                 guard let url = URL(string: recipeUrlText) else {
                     return
+                }
+                
+                withAnimation(.snappy) {
+                    isAddingRecipe = true
                 }
                 
                 let metadata = try await URLParser.parse(url: url)
@@ -38,6 +46,10 @@ extension RecipeListScreen {
                 try RecipeRepository.insert(recipe, into: context)
             } catch {
                 // TODO: Handle errors
+            }
+            
+            withAnimation(.snappy) {
+                isAddingRecipe = false
             }
         }
         
