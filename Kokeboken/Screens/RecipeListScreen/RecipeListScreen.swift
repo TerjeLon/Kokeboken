@@ -55,8 +55,19 @@ struct RecipeListScreen: View {
                         Image(
                             systemName: viewModel.addRecipeSuccess ? "checkmark" : "circle.hexagonpath"
                         )
-                        .symbolEffect(.rotate.byLayer, options: .repeat(.periodic(delay: 0.3)))
-                        .contentTransition(.symbolEffect(.replace.magic(fallback: .downUp.byLayer), options: .nonRepeating))
+                        .symbolEffect(
+                            .rotate.byLayer,
+                            options: .repeat(.periodic(delay: 0.3)),
+                            isActive: viewModel.addRecipeSuccess == false
+                        )
+                        .contentTransition(
+                            .symbolEffect(
+                                .replace.magic(
+                                    fallback: .downUp.byLayer
+                                ),
+                                options: .nonRepeating
+                            )
+                        )
                         .foregroundStyle(.white)
                     }
                     .buttonStyle(.glassProminent)

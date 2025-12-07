@@ -58,6 +58,8 @@ extension RecipeListScreen {
                             withAnimation(.snappy) {
                                 self?.isAddingRecipe = false
                                 self?.addRecipeSuccess = false
+                                
+                                // TODO: Scroll to added recipe
                             }
                         }
                     }
