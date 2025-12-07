@@ -6,15 +6,25 @@ struct RecipeListScreen: View {
     @Environment(\.modelContext)
     private var modelContext
     
+    @EnvironmentObject
+    private var navigationCoordinator: NavigationCoordinator
+    
     @StateObject
     private var viewModel = ViewModel()
     
     @State
-    var query: String = ""
+    private var isPresentingSearch: Bool = false
     
     var body: some View {
         ScrollView {
-            SearchableList(query: viewModel.query)
+            SearchableList(query: viewModel.query) { recipe in
+                isPresentingSearch = false
+                
+                Task { @MainActor [recipe] in
+                    try? await Task.sleep(for: .seconds(0.4))
+                    navigationCoordinator.push(recipe)
+                }
+            }
         }
         .scrollBounceBehavior(.basedOnSize)
         .navigationTitle("Oppskrifter")
@@ -45,7 +55,11 @@ struct RecipeListScreen: View {
         }
         .scrollContentBackground(.hidden)
         .background(Assets.Colors.background)
-        .searchable(text: $viewModel.query, prompt: "Søk etter oppskrift")
+        .searchable(
+            text: $viewModel.query,
+            isPresented: $isPresentingSearch,
+            prompt: "Søk etter oppskrift"
+        )
         .toolbar {
             if viewModel.isAddingRecipe {
                 ToolbarItem(placement: .bottomBar) {
@@ -76,8 +90,13 @@ struct RecipeListScreen: View {
                 }
             }
         }
+        .onAppear {
+            if viewModel.query.isEmpty == false {
+                isPresentingSearch = true
+            }
+        }
         .navigationDestination(for: Recipe.self) { recipe in
-            return RecipeReaderScreen(recipe: recipe)
+            RecipeReaderScreen(recipe: recipe)
         }
     }
 }
@@ -89,7 +108,9 @@ fileprivate struct SearchableList: View {
     @Query
     private var recipes: [Recipe]
     
-    init(query: String) {
+    let onTapRecipe: (Recipe) -> Void
+    
+    init(query: String, onTapRecipe: @escaping (Recipe) -> Void) {
         _recipes = Query(
             filter: #Predicate<Recipe> { recipe in
                 query.isEmpty ||
@@ -98,12 +119,14 @@ fileprivate struct SearchableList: View {
             sort: \.title,
             animation: .snappy
         )
+        
+        self.onTapRecipe = onTapRecipe
     }
     
     var body: some View {
         LazyVStack {
             ForEach(recipes) { recipe in
-                RecipeCard(recipe: recipe)
+                RecipeCard(recipe: recipe, onTap: onTapRecipe)
             }
         }
     }
@@ -117,7 +140,7 @@ fileprivate struct SearchableList: View {
     
     let mockedModelContainer = mockedModelContainer()
     
-    NavigationStack {
+    NavigationStack(path: $navigationCoordinator.path) {
         RecipeListScreen()
     }
     .modelContainer(mockedModelContainer)

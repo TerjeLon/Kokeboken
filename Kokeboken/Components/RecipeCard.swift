@@ -6,9 +6,6 @@ struct RecipeCard: View {
     @Environment(\.modelContext)
     private var modelContext
     
-    @EnvironmentObject
-    private var navigationCoordinator: NavigationCoordinator
-    
     @State
     private var showOptions: Bool = false
     
@@ -19,11 +16,12 @@ struct RecipeCard: View {
     private var editRecipeId: PersistentIdentifier? = nil
     
     let recipe: Recipe
+    let onTap: (Recipe) -> Void
     
     var body: some View {
         HStack(spacing: Assets.Margins.sm) {
             Button {
-                navigationCoordinator.push(recipe)
+                onTap(recipe)
             } label: {
                 Card(recipe: recipe)
                     .overlay(alignment: .topTrailing) {
