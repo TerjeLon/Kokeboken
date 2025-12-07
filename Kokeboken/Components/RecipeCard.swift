@@ -27,21 +27,27 @@ struct RecipeCard: View {
             } label: {
                 Card(recipe: recipe)
                     .overlay(alignment: .topTrailing) {
-                        if !showOptions {
-                            Button {
-                                withAnimation(.snappy) {
-                                    showOptions.toggle()
-                                }
-                            } label: {
-                                Image(systemName: "ellipsis")
-                                    .frame(width: 20, height: 20)
-                                    .padding(Assets.Margins.xs)
+                        Button {
+                            withAnimation(.snappy) {
+                                showOptions.toggle()
                             }
-                            .buttonStyle(.glass)
-                            .clipShape(.circle)
-                            .padding(.trailing, Assets.Margins.sm)
-                            .padding(.top, Assets.Margins.sm)
+                        } label: {
+                            Image(systemName: showOptions ? "xmark" : "ellipsis")
+                                .frame(width: 20, height: 20)
+                                .padding(Assets.Margins.xs)
+                                .contentTransition(
+                                    .symbolEffect(
+                                        .replace.magic(
+                                            fallback: .downUp.byLayer
+                                        ),
+                                        options: .nonRepeating
+                                    )
+                                )
                         }
+                        .buttonStyle(.glass)
+                        .clipShape(.circle)
+                        .padding(.trailing, Assets.Margins.sm)
+                        .padding(.top, Assets.Margins.sm)
                     }
                     .padding(.leading, Assets.Margins.lg)
                     .padding(.trailing, showOptions ? 0 : Assets.Margins.lg)
@@ -49,12 +55,8 @@ struct RecipeCard: View {
             
             if showOptions {
                 VStack {
-                    Button {
-                        withAnimation(.snappy) {
-                            showOptions.toggle()
-                        }
-                    } label: {
-                        Image(systemName: "xmark")
+                    ShareLink(item: recipe.url, preview: SharePreview(recipe.title, image: recipe.image)) {
+                        Image(systemName: "square.and.arrow.up")
                             .frame(width: 20, height: 20)
                             .padding(Assets.Margins.xs)
                     }

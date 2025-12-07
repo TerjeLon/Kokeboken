@@ -48,14 +48,14 @@ extension RecipeListScreen {
             }
             
             await MainActor.run {
-                withAnimation(.snappy) {
+                withAnimation(.snappy(duration: 0.3)) {
                     addRecipeSuccess = true
                 } completion: { [weak self] in
                     Task {
-                        try? await Task.sleep(for: .seconds(0.5))
+                        try? await Task.sleep(for: .seconds(1))
                         
                         await MainActor.run {
-                            withAnimation(.snappy) {
+                            withAnimation(.snappy(duration: 0.3)) {
                                 self?.isAddingRecipe = false
                                 self?.addRecipeSuccess = false
                                 

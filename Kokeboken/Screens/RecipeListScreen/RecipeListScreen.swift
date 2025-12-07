@@ -71,7 +71,7 @@ struct RecipeListScreen: View {
                         .foregroundStyle(.white)
                     }
                     .buttonStyle(.glassProminent)
-                    .tint(viewModel.addRecipeSuccess ? Color.green : Assets.Colors.primary)
+                    .tint(Assets.Colors.primary)
                     .sensoryFeedback(.success, trigger: viewModel.addRecipeSuccess)
                 }
             }
